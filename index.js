@@ -20,7 +20,16 @@ server = http.createServer(function (req, res) {
             res.write("jojoy hola !!");
             res.end();
             break;
+        default:
+            send404(res);
+            break;
     }
 });
+
+send404 = function (res) {
+    res.writeHead(404, {"Content-Type": "text/html"});
+    res.write("Error 404 - Pagina no encontrada");
+    res.end();
+};
 
 server.listen(1337);
