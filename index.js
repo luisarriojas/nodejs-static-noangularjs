@@ -11,25 +11,67 @@ var url = require("url");
 var fs = require("fs");
 var server;
 
-
 server = http.createServer(function (req, res) {
     var path = url.parse(req.url).pathname;
     switch (path) {
         case "/":
-            res.writeHead(200, {"Content-Type": "text/html"});
-            res.write("jojoy hola !!");
-            res.end();
+            fs.readFile(__dirname + "/static/home.html", function (error, data) {
+                if (error) return send404Html(res);
+
+                res.writeHead(200, {"Content-Type": "text/html"});
+                res.write(data, "utf8");
+                res.end();
+            });
+            break;
+        case "/home":
+            fs.readFile(__dirname + "/static/home.html", function (error, data) {
+                if (error) return send404Html(res);
+
+                res.writeHead(200, {"Content-Type": "text/html"});
+                res.write(data, "utf8");
+                res.end();
+            });
+            break;
+        case "/about":
+            fs.readFile(__dirname + "/static/about.html", function (error, data) {
+                if (error) return send404Html(res);
+
+                res.writeHead(200, {"Content-Type": "text/html"});
+                res.write(data, "utf8");
+                res.end();
+            });
+            break;
+        case "/contact":
+            fs.readFile(__dirname + "/static/contact.html", function (error, data) {
+                if (error) return send404Html(res);
+
+                res.writeHead(200, {"Content-Type": "text/html"});
+                res.write(data, "utf8");
+                res.end();
+            });
             break;
         default:
-            send404(res);
+            send404Html(res);
             break;
     }
 });
 
-send404 = function (res) {
-    res.writeHead(404, {"Content-Type": "text/html"});
-    res.write("Error 404 - Pagina no encontrada");
+server.listen(1337);
+
+send404Html = function (res) {
+    fs.readFile(__dirname + "/static/404.html", function (error, data) {
+        if (error) return send404Text(res);
+
+        res.writeHead(404, {"Content-Type": "text/html"});
+        res.write(data, "utf8");
+        res.end();
+    });
+};
+
+send404Text = function (res) {
+    res.writeHead(404, {"Content-Type": "text/plain"});
+    res.write("404 error - The requested page wasn't found. Sorry.");
     res.end();
 };
 
-server.listen(1337);
+console.log("Ready!!");
