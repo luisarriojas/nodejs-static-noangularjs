@@ -51,7 +51,13 @@ server = http.createServer(function (req, res) {
             });
             break;
         default:
-            send404Html(res);
+            fs.readFile(__dirname + path, function (error, data) {
+                if (error) return send404Html(res);
+
+                res.writeHead(200);
+                res.write(data);
+                res.end();
+            });
             break;
     }
 });
