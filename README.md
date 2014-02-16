@@ -1,8 +1,6 @@
 nodejs-static-noangularjs
 =========================
 
-Static website without AngularJS using Node.js
-
 ### How to use:
 1) Modify the Router section on index.js.
 2) Add files to the folder's structure of your choice.
