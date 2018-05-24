@@ -9,10 +9,9 @@
 var http = require("http");
 var url = require("url");
 var fs = require("fs");
-var server;
 var error404Url = "/static/404.html";
 
-server = http.createServer(function (req, res) {
+var server = http.createServer(function (req, res) {
     var path = url.parse(req.url).pathname;
     switch (path) {
         /* Router section*/
@@ -43,8 +42,7 @@ send404Html = function (res) {
         if (error) return send404Text(res);
 
         res.writeHead(404);
-        res.write(data);
-        res.end();
+        res.end(data);
     });
 };
 
@@ -53,8 +51,7 @@ callAsset = function (asset, res) {
         if (error) return send404Html(res);
 
         res.writeHead(200);
-        res.write(data);
-        res.end();
+        res.end(data);
     });
 };
 
